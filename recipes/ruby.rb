@@ -70,8 +70,6 @@ rescue LoadError
 
   include_recipe 'postgresql::client'
 
-  #ENV['ARCHFLAGS']='-arch x86_64'
-
   node['postgresql']['client']['packages'].each do |pkg|
     package pkg do
       action :nothing
@@ -79,17 +77,10 @@ rescue LoadError
   end
 
   begin
-    gem_package 'pg' do
-      version node['postgresql']['pg_gem']['version'] if node['postgresql']['pg_gem']['version']
-      action :install
-    end
-
-=begin
     chef_gem 'pg' do
       compile_time true if respond_to?(:compile_time)
       version node['postgresql']['pg_gem']['version'] if node['postgresql']['pg_gem']['version']
     end
-=end
   rescue Gem::Installer::ExtensionBuildError, Mixlib::ShellOut::ShellCommandFailed => e
     # Are we an omnibus install?
     raise if RbConfig.ruby.scan(/(chef|opscode)/).empty?
