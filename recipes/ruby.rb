@@ -70,6 +70,8 @@ rescue LoadError
 
   include_recipe 'postgresql::client'
 
+  ENV['ARCHFLAGS']='-arch x86_64'
+
   node['postgresql']['client']['packages'].each do |pkg|
     package pkg do
       action :nothing
