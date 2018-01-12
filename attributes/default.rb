@@ -25,6 +25,10 @@ default['postgresql']['assign_postgres_password'] = true
 # Establish default database name
 default['postgresql']['database_name'] = 'template1'
 
+# set to install a specific version of the ruby gem pg
+# if attribute is not defined, install will pick the latest available pg gem
+default['postgresql']['pg_gem']['version'] = nil
+
 # Sets OS init system (upstart, systemd, ...), instead of relying on Ohai
 default['postgresql']['server']['init_package'] =
   case node['platform']
